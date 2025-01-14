@@ -1,0 +1,45 @@
+<!-- MiApp/templates/MiApp/disminuir_cantidad.html -->
+{% extends 'MiApp/base.html' %}
+
+{% block content %}
+    <div class="container mt-5" style="max-width: 1128px; padding-left: 15px;">
+        <h2 class="text-primary">Disminuir Cantidad de Artículo</h2>
+        <p>Selecciona la cantidad a eliminar para el artículo <strong>{{ articulo.nombre }}</strong>.</p>
+
+        <!-- Formulario para disminuir la cantidad -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <h3 class="font-weight-bold text-primary" style="border-left: 5px solid #007bff; padding-left: 10px;">Detalles del Artículo</h3>
+            </div>
+            <div class="col-md-12">
+                <div class="border p-4 rounded shadow-sm" style="background-color: #f8f9fa; border-left: 5px solid #007bff;">
+                    <h5 class="font-weight-bold">{{ articulo.nombre }}</h5>
+                    <p class="card-text">Cantidad actual: {{ articulo.cantidad }} {{ articulo.get_unidad_medida_display }}</p>
+                    <p class="card-text">Fecha de vencimiento: {{ articulo.fecha_vencimiento }}</p>
+
+                    <!-- Formulario de disminución -->
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="cantidad_a_eliminar" class="form-label">Cantidad a disminuír</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="cantidad_a_eliminar" name="cantidad_a_eliminar" min="0" max="{{ articulo.cantidad }}" step="0.01" required placeholder="Ingrese cantidad a eliminar">
+                                <span class="input-group-text">{{ articulo.get_unidad_medida_display }}</span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-warning">Disminuir Cantidad</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mensaje de éxito o error -->
+        {% if mensaje %}
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="alert alert-info">{{ mensaje }}</div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
