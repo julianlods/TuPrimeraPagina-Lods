@@ -1,0 +1,18 @@
+{% extends 'MiApp/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 720px;">
+    <div class="text-center">
+        <!-- Imagen circular -->
+        <img src="{% static 'MiApp/images/mi_foto.jpg' %}" alt="Mi Foto" class="rounded-circle mb-4" style="width: 150px; height: 150px; object-fit: cover; border: 2px solid #0d6efd;">
+        
+        <!-- Título -->
+        <h2 class="text-primary mb-4">Acerca de mí</h2>
+    </div>
+
+    <!-- Texto de presentación -->
+    <p>Buenas! Mi nombre es Julián Lods, hincha de Huracán y Licenciado en Sistemas egresado de la UBA. Soy el humilde desarrollador de "Cocina Inteligente". Esta plataforma ha sido creada con el propósito de ayudarte a gestionar tus artículos de cocina de manera eficiente. Vas a poder saber cuántos productos tenés, su ubicación y estar atento a que no se venzan sin antes consumirlos. Si tenés alguna pregunta o sugerencia, no dudes en contactarme. ¡Que la disfrutes!</p>
+</div>
+{% endblock %}

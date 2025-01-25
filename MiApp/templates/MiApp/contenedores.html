@@ -46,9 +46,17 @@
                 <form method="post" class="mt-3">
                     {% csrf_token %}
                     {{ articulo_form.as_p }}
-                    {% for error in articulo_form.non_field_errors %}
-                        <div class="alert alert-danger">{{ error }}</div>
-                    {% endfor %}
+                    {% if articulo_form.errors %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {% for field, errors in articulo_form.errors.items %}
+                                    {% for error in errors %}
+                                        <li>{{ field }}: {{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
                     <button type="submit" name="crear_articulo" class="btn btn-primary w-100">Agregar Artículo</button>
                 </form>
             </div>

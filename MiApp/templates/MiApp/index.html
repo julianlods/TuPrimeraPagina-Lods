@@ -3,6 +3,15 @@
 {% block content %}
     <div class="container mt-5" style="max-width: 1128px; padding-left: 15px;">
         <h2 class="font-weight-bold mb-4 text-primary">COCINA INTELIGENTE - GESTIÓN DE STOCK</h2>
+
+        {% if user.is_authenticated %}
+            <p>Bienvenido, {{ user.username }}. <a href="{% url 'logout' %}">Cerrar sesión</a></p>
+            <p>Accede a tus <a href="{% url 'contenedores' %}">contenedores</a>.</p>
+        {% else %}
+            <p>Por favor, <a href="{% url 'login' %}">inicia sesión</a> o <a href="{% url 'register' %}">registrate</a> para comenzar.</p>
+        {% endif %}
+
+        {% if not user.is_authenticated %}
         <p>Con este sistema, podrás gestionar los artículos de tu cocina de manera fácil y eficiente. Algunas de las funcionalidades que podrás disfrutar son:</p>
 
         <!-- Lista alineada a la izquierda -->
@@ -14,5 +23,6 @@
                 <li><strong>- Recibir recetas para que ninguno de tus productos se eche a perder</strong></li>
             </ul>
         </div>
+        {% endif %}
     </div>
 {% endblock %}

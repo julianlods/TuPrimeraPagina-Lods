@@ -1,13 +1,32 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
+
+
+class Perfil(models.Model):
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='perfil')
+    avatar = models.ImageField(
+        upload_to='avatars/',
+        default='avatars/default-avatar.png',  # Imagen por defecto
+        blank=True
+    )
+
+    def __str__(self):
+        return f"Perfil de {self.usuario.username}"
+
 
 class Contenedor(models.Model):
-    nombre = models.CharField(max_length=100, unique=True)
+    nombre = models.CharField(max_length=100)  # Se elimina unique=True
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name="contenedores")
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['nombre', 'usuario'], name='unique_contenedor_per_user')
+        ]
 
     def __str__(self):
         return self.nombre
 
-from django.core.exceptions import ValidationError
 
 class Articulo(models.Model):
     UNIDAD_MEDIDA_CHOICES = [

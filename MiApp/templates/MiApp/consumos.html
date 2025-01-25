@@ -1,50 +1,56 @@
-<!-- MiApp/templates/MiApp/consumos.html -->
 {% extends 'MiApp/base.html' %}
 
 {% block content %}
-    <div class="container mt-5" style="max-width: 1128px; padding-left: 15px;">
-        <h2 class="text-primary">GESTIÓN DE CONSUMOS</h2>
-        <p>Aquí puedes reducir las cantidades de los artículos o consultar los próximos a vencer.</p>
+<div class="container mt-5" style="max-width: 1128px; padding-left: 15px;">
+    <h2 class="text-primary">GESTIÓN DE CONSUMOS</h2>
+    <p>Aquí puedes reducir las cantidades de los artículos o consultar los próximos a vencer.</p>
 
-        <!-- Listado de artículos a disminuir -->
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <h3 class="font-weight-bold text-primary" style="border-left: 5px solid #007bff; padding-left: 10px;">Artículos a Disminuir</h3>
-            </div>
-            {% for articulo in articulos %}
-                <div class="col-md-4 mb-4">
-                    <div class="border p-4 rounded shadow-sm" style="background-color: #f8f9fa; border-left: 5px solid #007bff;">
-                        <h5 class="font-weight-bold">{{ articulo.nombre }}</h5>
-                        <p class="card-text">Cantidad: {{ articulo.cantidad }} {{ articulo.get_unidad_medida_display }}</p>
-                        <a href="{% url 'disminuir_cantidad' articulo.id %}" class="btn btn-warning">Disminuir Cantidad</a>
-                    </div>
-                </div>
-            {% empty %}
-                <div class="col-md-12">
-                    <p>No hay artículos para disminuir.</p>
-                </div>
-            {% endfor %}
+    <!-- Listado de artículos a disminuir -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h3 class="font-weight-bold text-primary" style="border-left: 5px solid #007bff; padding-left: 10px;">
+                Artículos a Disminuir
+            </h3>
         </div>
-
-        <!-- Artículos próximos a vencer -->
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <h3 class="font-weight-bold text-primary" style="border-left: 5px solid #007bff; padding-left: 10px;">Artículos Próximos a Vencer</h3>
+        {% for articulo in articulos %}
+            <div class="col-md-4 mb-4">
+                <div class="border p-4 rounded shadow-sm" style="background-color: #f8f9fa; border-left: 5px solid #007bff;">
+                    <h5 class="font-weight-bold">{{ articulo.nombre }}</h5>
+                    <p class="card-text">
+                        Cantidad: {{ articulo.cantidad }} {{ articulo.get_unidad_medida_display }}
+                    </p>
+                    <a href="{% url 'disminuir_cantidad' articulo.id %}" class="btn btn-warning">Disminuir Cantidad</a>
+                </div>
             </div>
-            {% for articulo in proximos_a_vencer %}
-                <div class="col-md-4 mb-4">
-                    <div class="border p-4 rounded shadow-sm" style="background-color: #f8f9fa; border-left: 5px solid #007bff;">
-                        <h5 class="font-weight-bold">{{ articulo.nombre }}</h5>
-                        <p class="card-text">Fecha de vencimiento: {{ articulo.fecha_vencimiento|date:"m/d/Y" }}</p>
-                    </div>
-                </div>
-            {% empty %}
-                <div class="col-md-12">
-                    <p>No hay artículos próximos a vencer.</p>
-                </div>
-            {% endfor %}
-        </div>
+        {% empty %}
+            <div class="col-md-12">
+                <p>No hay artículos para disminuir.</p>
+            </div>
+        {% endfor %}
     </div>
-{% endblock %}
 
+    <!-- Artículos próximos a vencer -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h3 class="font-weight-bold text-primary" style="border-left: 5px solid #007bff; padding-left: 10px;">
+                Artículos Próximos a Vencer
+            </h3>
+        </div>
+        {% for articulo in proximos_a_vencer %}
+            <div class="col-md-4 mb-4">
+                <div class="border p-4 rounded shadow-sm" style="background-color: #f8f9fa; border-left: 5px solid #007bff;">
+                    <h5 class="font-weight-bold">{{ articulo.nombre }}</h5>
+                    <p class="card-text">
+                        Fecha de vencimiento: {{ articulo.fecha_vencimiento|date:"d/m/Y" }}
+                    </p>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-md-12">
+                <p>No hay artículos próximos a vencer.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
 
